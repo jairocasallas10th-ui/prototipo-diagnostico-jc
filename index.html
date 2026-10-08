@@ -271,14 +271,22 @@
             flex-direction: column;
             align-items: flex-start;
             text-align: left;
-            height: auto;
+            height: 100%;
             justify-content: flex-start;
+        }
+
+        .screen-1 .tag {
+            margin-top: auto;
+        }
+
+        .screen-1 .benefits {
+            margin-bottom: auto;
         }
 
         .logo-container {
             width: auto;
             height: 28px;
-            margin-bottom: 40px;
+            margin-bottom: auto;
             margin-top: 16px;
             background: transparent;
             border-radius: 0;
@@ -286,6 +294,7 @@
             align-items: center;
             justify-content: flex-start;
             padding: 0;
+            flex-shrink: 0;
         }
 
         .logo-container img {
@@ -295,14 +304,7 @@
         }
 
         .illustration-box {
-            width: 100%;
-            height: 168px;
-            background: #EAF4FA;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
+            display: none;
         }
 
         .illustration-svg {
@@ -1252,7 +1254,6 @@
                 </div>
                 <div class="screen-footer active" data-footer="1">
                     <button class="btn btn-primary" data-action="start-diagnosis">Hacer mi diagnóstico</button>
-                    <div class="btn-meta">Sin compromiso · 4 bloques de preguntas</div>
                 </div>
             </div>
 
