@@ -56,7 +56,7 @@
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
         }
 
-        @media (min-width: 431px) {
+        @media (min-width: 768px) {
             body {
                 background-color: #f0f0f0;
             }
@@ -299,18 +299,19 @@
             margin-bottom: 20px;
         }
 
-        .btn-primary:active {
+        .btn-primary:active:not(.enabled) {
             background: var(--gris-claro);
             transform: scale(0.98);
         }
 
         .btn-primary.enabled {
-            background: var(--azul-principal);
-            color: white;
+            background: var(--azul-principal) !important;
+            color: white !important;
         }
 
         .btn-primary.enabled:active {
-            background: var(--azul-oscuro);
+            background: var(--azul-oscuro) !important;
+            transform: scale(0.98);
         }
 
         .btn-secondary {
@@ -1088,14 +1089,6 @@
             }
         }
 
-        @media (max-width: 380px) {
-            .screen-content {
-                padding: 16px;
-            }
-            .screen-1 h1 {
-                font-size: 28px;
-            }
-        }
     </style>
 </head>
 <body>
