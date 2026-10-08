@@ -40,37 +40,40 @@
 
         body {
             font-family: 'Noto Sans', sans-serif;
-            background-color: var(--gris-claro);
+            background-color: #FFFFFF;
             color: var(--texto);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            margin: 0;
             padding: 0;
+            min-height: 100dvh;
             overflow-x: hidden;
         }
 
         .app-container {
             width: 100%;
-            max-width: 390px;
             height: 100vh;
-            max-height: 844px;
-            background: white;
+            height: 100dvh;
+            background: #FFFFFF;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         @media (min-width: 768px) {
             body {
-                background-color: #f0f0f0;
+                background-color: #F0F0F0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             .app-container {
+                width: 390px;
                 height: 844px;
                 border-radius: 40px;
                 border: 12px solid #333;
                 overflow: hidden;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+                transform: translateZ(0);
             }
         }
 
@@ -94,9 +97,9 @@
         }
 
         .demo-button {
-            position: fixed;
-            top: max(calc(24px + 6px), calc(env(safe-area-inset-top) + 30px));
-            right: 20px;
+            position: absolute;
+            top: calc(env(safe-area-inset-top) + 34px);
+            right: 24px;
             background: white;
             border: 1px solid var(--gris-borde);
             border-radius: 16px;
@@ -119,7 +122,7 @@
         }
 
         .demo-overlay {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -137,16 +140,14 @@
         }
 
         .demo-sheet {
-            position: fixed;
+            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             background: white;
             border-radius: 20px 20px 0 0;
             z-index: 1999;
-            max-width: 390px;
-            left: 50%;
-            transform: translateX(-50%) translateY(500px);
+            transform: translateY(500px);
             transition: transform 200ms ease;
             box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
             padding: 20px 24px;
@@ -154,7 +155,7 @@
         }
 
         .demo-sheet.active {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
         }
 
         .demo-sheet-item {
@@ -378,10 +379,10 @@
         }
 
         .screen-footer {
-            padding: 16px 24px 20px;
+            padding: 16px 24px;
             padding-left: max(24px, env(safe-area-inset-left));
             padding-right: max(24px, env(safe-area-inset-right));
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
             background: white;
             border-top: 1px solid #EDEDED;
             display: none;
@@ -1151,8 +1152,8 @@
         }
 
         .toast {
-            position: fixed;
-            bottom: 20px;
+            position: absolute;
+            bottom: calc(env(safe-area-inset-bottom) + 90px);
             left: 20px;
             right: 20px;
             background: var(--azul-principal);
