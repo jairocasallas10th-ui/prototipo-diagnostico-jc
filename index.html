@@ -68,7 +68,6 @@
             }
         }
 
-        /* Banda superior fija */
         .top-banner {
             background-color: rgba(0, 0, 0, 0.85);
             color: white;
@@ -80,7 +79,6 @@
             line-height: 1.4;
         }
 
-        /* Tabs de vista */
         .view-tabs {
             display: flex;
             background: white;
@@ -107,7 +105,6 @@
             border-bottom-color: var(--azul-principal);
         }
 
-        /* Contenedor de pantallas */
         .screen-wrapper {
             flex: 1;
             overflow: hidden;
@@ -147,7 +144,6 @@
             flex-direction: column;
         }
 
-        /* Encabezados de pantalla */
         .screen-header {
             display: flex;
             justify-content: space-between;
@@ -182,7 +178,8 @@
         .reset-btn {
             width: 40px;
             height: 40px;
-            margin-right: -8px;
+            margin-right: 0;
+            padding: 0;
             border: 2px solid var(--gris-borde);
             border-radius: 50%;
             color: var(--gris-medio);
@@ -197,7 +194,11 @@
             background-color: var(--gris-suave);
         }
 
-        /* Pantalla 1: Gancho */
+        .reset-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .screen-1 {
             background: var(--degradado);
             color: white;
@@ -217,23 +218,21 @@
         }
 
         .logo-container {
-            width: 60px;
-            height: 60px;
+            width: auto;
+            height: 32px;
             margin-bottom: 24px;
-            background: rgba(255, 255, 255, 0.2);
+            background: white;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
+            padding: 8px 16px;
         }
 
         .logo-container img {
-            width: 90%;
-            height: 90%;
+            height: 100%;
             object-fit: contain;
+            max-width: 160px;
         }
 
         .tag {
@@ -305,6 +304,15 @@
             transform: scale(0.98);
         }
 
+        .btn-primary.enabled {
+            background: var(--azul-principal);
+            color: white;
+        }
+
+        .btn-primary.enabled:active {
+            background: var(--azul-oscuro);
+        }
+
         .btn-secondary {
             background: white;
             color: var(--azul-principal);
@@ -316,7 +324,7 @@
         }
 
         .btn:disabled {
-            background: var(--gris-suave);
+            background: var(--gris-borde);
             color: var(--gris-medio);
             cursor: not-allowed;
             opacity: 0.6;
@@ -328,7 +336,6 @@
             margin-top: 16px;
         }
 
-        /* Barra de progreso */
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -349,7 +356,6 @@
             font-weight: 500;
         }
 
-        /* Pantallas 2-5: Bloques */
         .question-group {
             margin-bottom: 28px;
         }
@@ -419,15 +425,6 @@
             color: var(--texto);
         }
 
-        .info-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-            vertical-align: text-top;
-        }
-
-        /* Botón continuar fijo */
         .screen-footer {
             padding: 12px 20px 20px;
             padding-left: max(20px, env(safe-area-inset-left));
@@ -436,10 +433,17 @@
             background: white;
             border-top: 1px solid var(--gris-borde);
             display: none;
+            gap: 10px;
         }
 
         .screen-footer.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen-footer.two-buttons {
+            flex-direction: column;
+            gap: 8px;
         }
 
         .btn-full {
@@ -447,7 +451,16 @@
             justify-content: center;
         }
 
-        /* Pantalla 6: Autorización */
+        .btn-footer-secondary {
+            border: 2px solid var(--azul-principal);
+            background: white;
+            color: var(--azul-principal);
+        }
+
+        .btn-footer-secondary:active {
+            background: var(--gris-suave);
+        }
+
         .auth-card {
             background: white;
             border: 1px solid var(--gris-borde);
@@ -538,7 +551,6 @@
             text-decoration: none;
         }
 
-        /* Pantalla 7: Resultado */
         .greeting {
             font-size: 18px;
             font-weight: 600;
@@ -663,7 +675,6 @@
             font-weight: 600;
         }
 
-        /* Pantalla de transición */
         .screen-transition {
             background: var(--degradado);
             color: white;
@@ -695,7 +706,6 @@
             line-height: 1.5;
         }
 
-        /* Pantalla A: Alerta */
         .screen-a {
             background: linear-gradient(180deg, #0061A0 0%, #004080 100%);
             justify-content: center;
@@ -743,6 +753,7 @@
             text-align: left;
             color: var(--texto);
             animation: slideDown 400ms ease;
+            cursor: pointer;
         }
 
         @keyframes slideDown {
@@ -783,7 +794,6 @@
             font-style: italic;
         }
 
-        /* Pantalla B: Ficha */
         .screen-b-header {
             background: var(--azul-oscuro);
             color: white;
@@ -831,16 +841,18 @@
 
         .timeline {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
             margin-top: 14px;
             font-size: 11px;
             color: white;
+            gap: 4px;
         }
 
         .timeline-step {
             flex: 1;
             text-align: center;
+            min-width: 0;
         }
 
         .timeline-dot {
@@ -856,17 +868,16 @@
         }
 
         .timeline-line {
-            width: 100%;
+            flex-shrink: 0;
+            width: 12px;
             height: 1px;
             background: rgba(255, 255, 255, 0.3);
-            margin: 0 -8px;
         }
 
         .timeline-step:last-child .timeline-line {
             display: none;
         }
 
-        /* Tarjetas de ficha */
         .card {
             background: white;
             border: 1px solid var(--gris-borde);
@@ -900,6 +911,8 @@
             margin-bottom: 6px;
             padding-left: 16px;
             position: relative;
+            font-size: 12px;
+            line-height: 1.6;
         }
 
         .card-list li::before {
@@ -914,13 +927,19 @@
             color: var(--alerta);
         }
 
-        /* Botones inferiores */
         .bottom-actions {
-            display: flex;
+            display: none;
             gap: 8px;
             margin-top: 16px;
             padding-top: 12px;
             border-top: 1px solid var(--gris-borde);
+        }
+
+        .screen-b .screen-footer {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
         }
 
         .btn-small {
@@ -935,13 +954,25 @@
             cursor: pointer;
             transition: all 200ms ease;
             min-height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-small:active {
             background: var(--gris-suave);
         }
 
-        /* Pantalla C: Preparación */
+        .btn-small.primary {
+            background: var(--azul-principal);
+            color: white;
+            border-color: var(--azul-principal);
+        }
+
+        .btn-small.primary:active {
+            background: var(--azul-oscuro);
+        }
+
         .preparation-header {
             display: flex;
             align-items: center;
@@ -1032,7 +1063,6 @@
             line-height: 1.5;
         }
 
-        /* Avisos/modals */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -1058,7 +1088,6 @@
             }
         }
 
-        /* Responsivo */
         @media (max-width: 380px) {
             .screen-content {
                 padding: 16px;
@@ -1071,30 +1100,32 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Banda superior fija -->
         <div class="top-banner">
             Prototipo conceptual · No es un sitio oficial de MetLife · No guarda datos
         </div>
 
-        <!-- Tabs de vista -->
         <div class="view-tabs">
             <button class="view-tab active" data-view="prospecto">Vista prospecto</button>
             <button class="view-tab" data-view="asesor">Vista asesor</button>
         </div>
 
-        <!-- Contenedor de pantallas -->
         <div class="screen-wrapper">
             <!-- VISTA PROSPECTO -->
-
-            <!-- Pantalla 1: Gancho -->
             <div class="screen screen-1 active" data-screen="1" data-view="prospecto">
                 <div class="screen-header">
                     <div></div>
-                    <button class="reset-btn" aria-label="Reiniciar demo">⟲</button>
+                    <button class="reset-btn" aria-label="Reiniciar demo" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="logo-container">
-                        <img src="assets/logo.svg" alt="MetLife" onerror="this.parentElement.textContent = 'ML';">
+                        <img src="assets/logo.png" alt="MetLife" onerror="this.parentElement.textContent = 'MetLife';">
                     </div>
                     <div class="tag">DIAGNÓSTICO DE CONTINUIDAD ECONÓMICA</div>
                     <h1>¿Tu seguro protege a tu familia o protege al banco?</h1>
@@ -1109,11 +1140,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 2: Tu situación -->
+            <!-- Pantalla 2 -->
             <div class="screen" data-screen="2" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1156,11 +1194,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 3: Tu respaldo -->
+            <!-- Pantalla 3 -->
             <div class="screen" data-screen="3" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1198,11 +1243,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 4: Tu prioridad -->
+            <!-- Pantalla 4 -->
             <div class="screen" data-screen="4" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1225,11 +1277,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 5: Tu perfil -->
+            <!-- Pantalla 5 -->
             <div class="screen" data-screen="5" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1265,11 +1324,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 6: Autorización -->
+            <!-- Pantalla 6 -->
             <div class="screen" data-screen="6" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">Tu resultado está listo</h2>
@@ -1306,11 +1372,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla 7: Resultado -->
+            <!-- Pantalla 7 -->
             <div class="screen" data-screen="7" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <p class="greeting">Andrés, este es tu diagnóstico</p>
@@ -1349,12 +1422,13 @@
                         </ol>
                     </div>
                 </div>
-                <div class="screen-footer active" data-footer="7">
+                <div class="screen-footer active two-buttons" data-footer="7">
                     <button class="btn btn-primary btn-full" data-action="schedule-call">Agendar 30 min con mi asesor</button>
+                    <button class="btn btn-footer-secondary btn-full" data-action="share-whatsapp">Recibir mi resultado por WhatsApp</button>
                 </div>
             </div>
 
-            <!-- Pantalla de transición -->
+            <!-- Pantalla transición -->
             <div class="screen screen-transition" data-screen="transition" data-view="prospecto">
                 <div class="screen-content">
                     <div class="transition-text">Listo. Andrés agendó su cita.</div>
@@ -1365,16 +1439,24 @@
 
             <!-- VISTA ASESOR -->
 
-            <!-- Pantalla A: Alerta -->
+            <!-- Pantalla A -->
             <div class="screen screen-a" data-screen="a" data-view="asesor">
                 <div class="screen-header">
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <div></div>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="lock-screen">
                         <div class="lock-time">10:42</div>
                         <div class="lock-date">domingo, 1 de noviembre</div>
-                        <div class="notification" data-action="go-to-ficha" style="cursor: pointer;">
+                        <div class="notification" data-action="go-to-ficha">
                             <div class="notification-app">WhatsApp · ahora</div>
                             <div class="notification-title">Nuevo prospecto A</div>
                             <div class="notification-text">Dr. Andrés Gómez, 45 años · Pediatra independiente. Completó su diagnóstico hace 1 min y agendó cita. Prioridad: proteger su ingreso.</div>
@@ -1384,11 +1466,18 @@
                 </div>
             </div>
 
-            <!-- Pantalla B: Ficha -->
+            <!-- Pantalla B -->
             <div class="screen" data-screen="b" data-view="asesor">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-b-header">
                     <div class="prospect-name">Dr. Andrés Gómez</div>
@@ -1452,19 +1541,27 @@
                         </div>
                     </div>
 
-                    <div class="bottom-actions">
-                        <button class="btn-small" data-action="demo-action">Llamar</button>
-                        <button class="btn-small" data-action="demo-action">WhatsApp</button>
-                        <button class="btn-small" data-action="go-to-prep">Ver preparación</button>
-                    </div>
+                    <div style="height: 80px;"></div>
+                </div>
+                <div class="screen-footer" data-footer="b">
+                    <button class="btn-small" data-action="demo-action">Llamar</button>
+                    <button class="btn-small" data-action="demo-action">WhatsApp</button>
+                    <button class="btn-small primary" data-action="go-to-prep">Ver preparación</button>
                 </div>
             </div>
 
-            <!-- Pantalla C: Preparación -->
+            <!-- Pantalla C -->
             <div class="screen" data-screen="c" data-view="asesor">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
-                    <button class="reset-btn visible" data-action="reset">⟲</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="preparation-header">
@@ -1504,34 +1601,27 @@
     </div>
 
     <script>
-        // Estado global
         const state = {
             currentScreen: '1',
             currentView: 'prospecto',
             responses: {}
         };
 
-        // Elementos del DOM
         const app = document.querySelector('.app-container');
         const screens = document.querySelectorAll('.screen');
         const viewTabs = document.querySelectorAll('.view-tab');
-        const screenWrapper = document.querySelector('.screen-wrapper');
 
-        // Funciones auxiliares
         function showScreen(screenId, view = state.currentView) {
-            // Ocultar todas las pantallas
             screens.forEach(screen => {
                 screen.classList.remove('active');
             });
 
-            // Mostrar la pantalla solicitada
             const targetScreen = document.querySelector(`[data-screen="${screenId}"][data-view="${view}"]`);
             if (targetScreen) {
                 targetScreen.classList.add('active');
                 state.currentScreen = screenId;
                 state.currentView = view;
 
-                // Actualizar tab activo
                 viewTabs.forEach(tab => {
                     tab.classList.remove('active');
                     if (tab.dataset.view === view) {
@@ -1539,13 +1629,8 @@
                     }
                 });
 
-                // Mostrar/ocultar botones de navegación
                 updateNavigationButtons(screenId, view);
-
-                // Mostrar/ocultar footer
                 updateFooters(screenId);
-
-                // Validar si continuar está habilitado
                 validateContinueButton(screenId);
             }
         }
@@ -1556,14 +1641,6 @@
 
             backBtns.forEach(btn => {
                 if (screenId === '1' || screenId === 'a') {
-                    btn.classList.remove('visible');
-                } else {
-                    btn.classList.add('visible');
-                }
-            });
-
-            resetBtns.forEach(btn => {
-                if (screenId === '1') {
                     btn.classList.remove('visible');
                 } else {
                     btn.classList.add('visible');
@@ -1590,63 +1667,99 @@
             const viewResultBtn = footer.querySelector('[data-action="view-result"]');
             const showResultBtn = footer.querySelector('[data-action="show-result"]');
 
-            // Validar pantalla 2
             if (screenId === '2' && continueBtn) {
                 const q1 = document.querySelector('[data-question="2.1"]').querySelector('.option.selected');
                 const q2 = document.querySelector('[data-question="2.2"]').querySelectorAll('.option.selected').length > 0;
                 const q3 = document.querySelector('[data-question="2.3"]').querySelector('.option.selected');
                 continueBtn.disabled = !(q1 && q2 && q3);
+                if (continueBtn.disabled) {
+                    continueBtn.classList.remove('enabled');
+                } else {
+                    continueBtn.classList.add('enabled');
+                }
             }
 
-            // Validar pantalla 3
             if (screenId === '3' && continueBtn) {
                 const q1 = document.querySelector('[data-question="3.1"]').querySelector('.option.selected');
                 const q2 = document.querySelector('[data-question="3.2"]').querySelectorAll('.option.selected').length > 0;
                 continueBtn.disabled = !(q1 && q2);
+                if (continueBtn.disabled) {
+                    continueBtn.classList.remove('enabled');
+                } else {
+                    continueBtn.classList.add('enabled');
+                }
             }
 
-            // Validar pantalla 4
             if (screenId === '4' && continueBtn) {
                 const q1 = document.querySelector('[data-question="4.1"]').querySelector('.option.selected');
                 continueBtn.disabled = !q1;
+                if (continueBtn.disabled) {
+                    continueBtn.classList.remove('enabled');
+                } else {
+                    continueBtn.classList.add('enabled');
+                }
             }
 
-            // Validar pantalla 5
             if (screenId === '5' && viewResultBtn) {
                 const q1 = document.querySelector('[data-question="5.1"]').querySelector('.option.selected');
                 const q2 = document.querySelector('[data-question="5.2"]').querySelector('.option.selected');
                 viewResultBtn.disabled = !(q1 && q2);
+                if (viewResultBtn.disabled) {
+                    viewResultBtn.classList.remove('enabled');
+                } else {
+                    viewResultBtn.classList.add('enabled');
+                }
             }
 
-            // Validar pantalla 6
             if (screenId === '6' && showResultBtn) {
                 const consent = document.querySelector('#consent-check').checked;
                 showResultBtn.disabled = !consent;
+                if (showResultBtn.disabled) {
+                    showResultBtn.classList.remove('enabled');
+                } else {
+                    showResultBtn.classList.add('enabled');
+                }
             }
         }
 
-        // Event listeners para opciones
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
                 const optionsContainer = this.parentElement;
                 const isMulti = optionsContainer.classList.contains('multi');
+                const optionText = this.textContent.trim();
 
                 if (!isMulti) {
-                    // Single select: deseleccionar otros
                     optionsContainer.querySelectorAll('.option').forEach(opt => {
                         opt.classList.remove('selected');
                     });
+                    this.classList.add('selected');
+                } else {
+                    // Multi-select con comportamiento especial para "Ninguno" y "No estoy seguro"
+                    if (optionText === 'Ninguno' || optionText === 'No estoy seguro') {
+                        if (this.classList.contains('selected')) {
+                            this.classList.remove('selected');
+                        } else {
+                            optionsContainer.querySelectorAll('.option').forEach(opt => {
+                                opt.classList.remove('selected');
+                            });
+                            this.classList.add('selected');
+                        }
+                    } else {
+                        const ningunoBtn = Array.from(optionsContainer.querySelectorAll('.option')).find(btn =>
+                            btn.textContent.trim() === 'Ninguno' || btn.textContent.trim() === 'No estoy seguro'
+                        );
+                        if (ningunoBtn && ningunoBtn.classList.contains('selected')) {
+                            ningunoBtn.classList.remove('selected');
+                        }
+                        this.classList.toggle('selected');
+                    }
                 }
 
-                this.classList.toggle('selected');
-
-                // Validar después de cambio
                 const screenId = state.currentScreen;
                 validateContinueButton(screenId);
             });
         });
 
-        // Event listeners para canales
         document.querySelectorAll('.channel').forEach(channel => {
             channel.addEventListener('click', function() {
                 document.querySelectorAll('.channel').forEach(ch => {
@@ -1656,14 +1769,14 @@
             });
         });
 
-        // Event listener para checkbox de consentimiento
         document.querySelector('#consent-check').addEventListener('change', function() {
             validateContinueButton('6');
         });
 
-        // Event listeners para botones de acción
         document.addEventListener('click', function(e) {
-            const action = e.target.dataset.action;
+            const el = e.target.closest('[data-action]');
+            if (!el) return;
+            const action = el.dataset.action;
 
             if (action === 'start-diagnosis') {
                 showScreen('2', 'prospecto');
@@ -1676,6 +1789,8 @@
                 showScreen('7', 'prospecto');
             } else if (action === 'schedule-call') {
                 showScreen('transition', 'prospecto');
+            } else if (action === 'share-whatsapp') {
+                showToast('Demo: aquí se enviaría tu resultado');
             } else if (action === 'go-to-asesor') {
                 showScreen('a', 'asesor');
             } else if (action === 'back') {
@@ -1697,7 +1812,7 @@
                 });
                 document.querySelector('[data-channel="whatsapp"]').classList.add('selected');
                 document.querySelector('#consent-check').checked = false;
-                showScreen('1', state.currentView === 'prospecto' ? 'prospecto' : 'prospecto');
+                showScreen('1', 'prospecto');
             } else if (action === 'go-to-ficha') {
                 showScreen('b', 'asesor');
             } else if (action === 'go-to-prep') {
@@ -1709,7 +1824,6 @@
             }
         });
 
-        // Event listeners para tabs de vista
         viewTabs.forEach(tab => {
             tab.addEventListener('click', function() {
                 const view = this.dataset.view;
@@ -1726,7 +1840,6 @@
             });
         });
 
-        // Toast notification
         function showToast(message) {
             const toast = document.createElement('div');
             toast.className = 'toast';
@@ -1737,7 +1850,6 @@
             }, 3000);
         }
 
-        // Inicialización
         showScreen('1', 'prospecto');
     </script>
 </body>
