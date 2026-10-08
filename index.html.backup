@@ -4,15 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Diagnóstico">
-    <meta name="theme-color" content="#FFFFFF">
     <title>Diagnóstico de Continuidad Económica</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="apple-touch-icon" href="assets/icon-180.png">
 
     <style>
         :root {
@@ -29,6 +22,7 @@
             --blanco: #FFFFFF;
             --alerta: #E0283E;
             --amarillo: #F2A900;
+            --degradado: linear-gradient(135.98deg, #0090DA 1.74%, #A4CE4E 107.12%);
             --verde: #27AE60;
         }
 
@@ -75,111 +69,40 @@
         }
 
         .top-banner {
-            background-color: #F5F5F5;
-            color: var(--gris-medio);
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
             font-size: 11px;
             text-align: center;
             padding: 6px 12px;
             padding-top: max(6px, env(safe-area-inset-top));
             z-index: 1000;
             line-height: 1.4;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .view-tabs {
-            display: none;
+            display: flex;
+            background: white;
+            border-bottom: 1px solid var(--gris-borde);
+            z-index: 100;
         }
 
-        .demo-button {
-            position: fixed;
-            top: max(calc(24px + 6px), calc(env(safe-area-inset-top) + 30px));
-            right: 20px;
+        .view-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
             background: white;
-            border: 1px solid var(--gris-borde);
-            border-radius: 16px;
-            color: var(--texto);
-            font-size: 12px;
-            font-weight: 600;
-            padding: 6px 12px;
-            height: 32px;
-            display: flex;
-            align-items: center;
+            color: var(--gris-medio);
             cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            border-bottom: 2px solid transparent;
             transition: all 200ms ease;
         }
 
-        .demo-button:active {
-            transform: scale(0.95);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-        }
-
-        .demo-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 1998;
-            transition: opacity 200ms ease;
-        }
-
-        .demo-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .demo-sheet {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 20px 20px 0 0;
-            z-index: 1999;
-            max-width: 390px;
-            left: 50%;
-            transform: translateX(-50%) translateY(500px);
-            transition: transform 200ms ease;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px 24px;
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
-        }
-
-        .demo-sheet.active {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .demo-sheet-item {
-            padding: 16px 0;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--texto);
-            border-bottom: 1px solid #EDEDED;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            height: 56px;
-            transition: all 200ms ease;
-        }
-
-        .demo-sheet-item:last-child {
-            border-bottom: none;
-        }
-
-        .demo-sheet-item:active {
-            background: #F5F5F5;
-            border-radius: 8px;
-            padding-left: 8px;
-            padding-right: 8px;
+        .view-tab.active {
+            color: var(--azul-principal);
+            border-bottom-color: var(--azul-principal);
         }
 
         .screen-wrapper {
@@ -187,7 +110,6 @@
             overflow: hidden;
             position: relative;
             display: flex;
-            margin-top: 24px;
         }
 
         .screen {
@@ -230,7 +152,7 @@
             padding-top: 8px;
         }
 
-        .back-btn {
+        .back-btn, .reset-btn {
             background: none;
             border: none;
             cursor: pointer;
@@ -249,163 +171,121 @@
             visibility: hidden;
         }
 
-        .back-btn.visible {
+        .back-btn.visible, .reset-btn.visible {
             visibility: visible;
         }
 
+        .reset-btn {
+            width: 40px;
+            height: 40px;
+            margin-right: 0;
+            padding: 0;
+            border: 2px solid var(--gris-borde);
+            border-radius: 50%;
+            color: var(--gris-medio);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 200ms ease;
+        }
+
+        .reset-btn:active {
+            background-color: var(--gris-suave);
+        }
+
+        .reset-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .screen-1 {
-            background: white;
-            color: var(--texto);
+            background: var(--degradado);
+            color: white;
             justify-content: flex-start;
-            padding-top: 0 !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            padding-top: max(20px, env(safe-area-inset-top)) !important;
         }
 
         .screen-1 .screen-content {
             padding: 0;
-            padding-left: max(24px, env(safe-area-inset-left));
-            padding-right: max(24px, env(safe-area-inset-right));
             background: transparent;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            height: auto;
-            justify-content: flex-start;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
         }
 
         .logo-container {
             width: auto;
-            height: 28px;
-            margin-bottom: 40px;
-            margin-top: 16px;
-            background: transparent;
-            border-radius: 0;
+            height: 32px;
+            margin-bottom: 24px;
+            background: white;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0;
+            justify-content: center;
+            padding: 8px 16px;
         }
 
         .logo-container img {
             height: 100%;
             object-fit: contain;
-            max-width: 120px;
-        }
-
-        .illustration-box {
-            width: 100%;
-            height: 168px;
-            background: #EAF4FA;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-        }
-
-        .illustration-svg {
-            width: 100px;
-            height: 100px;
+            max-width: 160px;
         }
 
         .tag {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
-            opacity: 1;
-            color: var(--azul-principal);
-            text-transform: uppercase;
+            opacity: 0.9;
         }
 
         .screen-1 h1 {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 12px;
-            line-height: 36px;
+            line-height: 1.3;
             letter-spacing: -0.5px;
-            color: var(--titulos);
-        }
-
-        .screen-1 h1 .highlight {
-            color: var(--azul-principal);
         }
 
         .screen-1 .subtitle {
-            font-size: 16px;
-            margin-bottom: 24px;
-            opacity: 1;
-            line-height: 24px;
-            max-width: 100%;
-            color: var(--gris-medio);
-        }
-
-        .benefits {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
-            width: 100%;
-        }
-
-        .benefit {
-            display: flex;
-            align-items: center;
-            gap: 12px;
             font-size: 15px;
-            color: var(--texto);
+            margin-bottom: 28px;
+            opacity: 0.95;
+            line-height: 1.5;
+            max-width: 280px;
         }
 
-        .benefit-icon {
-            width: 32px;
-            height: 32px;
-            background: #EAF4FA;
-            border-radius: 50%;
+        .chips {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .benefit-icon svg {
-            width: 20px;
-            height: 20px;
-            color: var(--azul-principal);
-        }
-
-        .screen-footer {
-            padding: 16px 24px 20px;
-            padding-left: max(24px, env(safe-area-inset-left));
-            padding-right: max(24px, env(safe-area-inset-right));
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
-            background: white;
-            border-top: 1px solid #EDEDED;
-            display: none;
-            gap: 10px;
-            flex-direction: column;
-            margin-top: auto;
-        }
-
-        .screen-footer.active {
-            display: flex;
-        }
-
-        .screen-footer.two-buttons {
-            flex-direction: column;
             gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
         .btn {
             padding: 14px 32px;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 200ms ease;
-            min-height: 54px;
+            min-height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -414,14 +294,13 @@
         }
 
         .btn-primary {
-            background: var(--azul-principal);
-            color: white;
-            width: 100%;
-            font-size: 16px;
+            background: white;
+            color: var(--azul-principal);
+            margin-bottom: 20px;
         }
 
-        .btn-primary:active {
-            background: var(--azul-oscuro);
+        .btn-primary:active:not(.enabled) {
+            background: var(--gris-claro);
             transform: scale(0.98);
         }
 
@@ -435,6 +314,16 @@
             transform: scale(0.98);
         }
 
+        .btn-secondary {
+            background: white;
+            color: var(--azul-principal);
+            border: 2px solid var(--azul-principal);
+        }
+
+        .btn-secondary:active {
+            background: var(--gris-claro);
+        }
+
         .btn:disabled {
             background: var(--gris-borde);
             color: var(--gris-medio);
@@ -444,10 +333,8 @@
 
         .screen-1 .btn-meta {
             font-size: 12px;
-            color: var(--gris-medio);
-            margin-top: 0;
-            text-align: center;
-            width: 100%;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 16px;
         }
 
         .progress-bar {
@@ -459,7 +346,7 @@
 
         .progress-fill {
             height: 100%;
-            background: var(--azul-principal);
+            background: var(--degradado);
             transition: width 400ms ease;
         }
 
@@ -537,6 +424,27 @@
             font-size: 13px;
             line-height: 1.6;
             color: var(--texto);
+        }
+
+        .screen-footer {
+            padding: 12px 20px 20px;
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            background: white;
+            border-top: 1px solid var(--gris-borde);
+            display: none;
+            gap: 10px;
+        }
+
+        .screen-footer.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen-footer.two-buttons {
+            flex-direction: column;
+            gap: 8px;
         }
 
         .btn-full {
@@ -769,7 +677,7 @@
         }
 
         .screen-transition {
-            background: var(--azul-principal);
+            background: var(--degradado);
             color: white;
             justify-content: center;
         }
@@ -1020,6 +928,21 @@
             color: var(--alerta);
         }
 
+        .bottom-actions {
+            display: none;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .screen-b .screen-footer {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+
         .btn-small {
             flex: 1;
             padding: 10px;
@@ -1049,13 +972,6 @@
 
         .btn-small.primary:active {
             background: var(--azul-oscuro);
-        }
-
-        .screen-b .screen-footer {
-            display: flex;
-            flex-direction: row;
-            gap: 8px;
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
         }
 
         .preparation-header {
@@ -1172,94 +1088,63 @@
                 transform: translateY(0);
             }
         }
+
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="top-banner">
-            Prototipo conceptual · No es un sitio oficial de MetLife
+            Prototipo conceptual · No es un sitio oficial de MetLife · No guarda datos
         </div>
 
-        <button class="demo-button" id="demoBtn">Demo</button>
-
-        <div class="demo-overlay" id="demoOverlay"></div>
-
-        <div class="demo-sheet" id="demoSheet">
-            <div class="demo-sheet-item" data-action="show-prospecto">👁️ Ver vista del prospecto</div>
-            <div class="demo-sheet-item" data-action="show-asesor">👥 Ver vista del asesor</div>
-            <div class="demo-sheet-item" data-action="reset-demo">🔄 Reiniciar demo</div>
+        <div class="view-tabs">
+            <button class="view-tab active" data-view="prospecto">Vista prospecto</button>
+            <button class="view-tab" data-view="asesor">Vista asesor</button>
         </div>
 
         <div class="screen-wrapper">
-            <!-- VISTA PROSPECTO - Pantalla 1: Gancho -->
+            <!-- VISTA PROSPECTO -->
             <div class="screen screen-1 active" data-screen="1" data-view="prospecto">
-                <div class="screen-header" style="visibility: hidden;"></div>
+                <div class="screen-header">
+                    <div></div>
+                    <button class="reset-btn" aria-label="Reiniciar demo" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
+                </div>
                 <div class="screen-content">
                     <div class="logo-container">
-                        <img src="assets/logo.png" alt="MetLife">
+                        <img src="assets/logo.png" alt="MetLife" onerror="this.parentElement.textContent = 'MetLife';">
                     </div>
-
-                    <div class="illustration-box">
-                        <svg class="illustration-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Escudo grande -->
-                            <path d="M 50 15 L 70 30 L 70 50 Q 70 70 50 85 Q 30 70 30 50 L 30 30 Z" fill="none" stroke="#007ABC" stroke-width="2"/>
-                            <!-- Casa dentro del escudo -->
-                            <path d="M 45 45 L 50 38 L 55 45 L 55 55 L 45 55 Z" fill="none" stroke="#007ABC" stroke-width="1.5"/>
-                            <!-- Puerta -->
-                            <rect x="49" y="48" width="2" height="7" fill="#007ABC"/>
-                            <!-- Tres círculos (familia) a la derecha -->
-                            <circle cx="65" cy="35" r="3.5" fill="#0090DA" opacity="0.8"/>
-                            <circle cx="65" cy="48" r="3.5" fill="#007ABC"/>
-                            <circle cx="65" cy="61" r="3.5" fill="#007ABC" opacity="0.6"/>
-                        </svg>
-                    </div>
-
                     <div class="tag">DIAGNÓSTICO DE CONTINUIDAD ECONÓMICA</div>
-
-                    <h1>¿Tu seguro protege <span class="highlight">a tu familia</span> o protege al banco?</h1>
-
+                    <h1>¿Tu seguro protege a tu familia o protege al banco?</h1>
                     <p class="subtitle">En 3 minutos descubre qué tienes cubierto, qué te falta y por dónde empezar.</p>
-
-                    <div class="benefits">
-                        <div class="benefit">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                            </div>
-                            <span>Toma solo 3 minutos</span>
-                        </div>
-                        <div class="benefit">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2"/>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                            </div>
-                            <span>Tus respuestas son confidenciales</span>
-                        </div>
-                        <div class="benefit">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 11l3 3L22 4"/>
-                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-                                </svg>
-                            </div>
-                            <span>Resultado inmediato y sin costo</span>
-                        </div>
+                    <div class="chips">
+                        <span class="chip">Sin costo</span>
+                        <span class="chip">Sin compromiso</span>
+                        <span class="chip">Resultado inmediato</span>
                     </div>
-                </div>
-                <div class="screen-footer active" data-footer="1">
                     <button class="btn btn-primary" data-action="start-diagnosis">Hacer mi diagnóstico</button>
-                    <div class="btn-meta">Sin compromiso · 4 bloques de preguntas</div>
+                    <div class="btn-meta">4 bloques · 3 minutos</div>
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 2: Tu situación -->
+            <!-- Pantalla 2 -->
             <div class="screen" data-screen="2" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1297,15 +1182,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="screen-footer active" data-footer="2">
+                <div class="screen-footer" data-footer="2">
                     <button class="btn btn-primary btn-full" data-action="continue" disabled>Continuar</button>
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 3: Tu respaldo -->
+            <!-- Pantalla 3 -->
             <div class="screen" data-screen="3" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1343,10 +1236,18 @@
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 4: Tu prioridad -->
+            <!-- Pantalla 4 -->
             <div class="screen" data-screen="4" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1369,10 +1270,18 @@
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 5: Tu perfil -->
+            <!-- Pantalla 5 -->
             <div class="screen" data-screen="5" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="progress-bar">
@@ -1408,10 +1317,18 @@
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 6: Autorización -->
+            <!-- Pantalla 6 -->
             <div class="screen" data-screen="6" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">Tu resultado está listo</h2>
@@ -1448,10 +1365,18 @@
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla 7: Resultado -->
+            <!-- Pantalla 7 -->
             <div class="screen" data-screen="7" data-view="prospecto">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <p class="greeting">Andrés, este es tu diagnóstico</p>
@@ -1496,7 +1421,7 @@
                 </div>
             </div>
 
-            <!-- VISTA PROSPECTO - Pantalla Transición -->
+            <!-- Pantalla transición -->
             <div class="screen screen-transition" data-screen="transition" data-view="prospecto">
                 <div class="screen-content">
                     <div class="transition-text">Listo. Andrés agendó su cita.</div>
@@ -1505,8 +1430,21 @@
                 </div>
             </div>
 
-            <!-- VISTA ASESOR - Pantalla A: Alerta -->
+            <!-- VISTA ASESOR -->
+
+            <!-- Pantalla A -->
             <div class="screen screen-a" data-screen="a" data-view="asesor">
+                <div class="screen-header">
+                    <div></div>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
+                </div>
                 <div class="screen-content">
                     <div class="lock-screen">
                         <div class="lock-time">10:42</div>
@@ -1521,10 +1459,18 @@
                 </div>
             </div>
 
-            <!-- VISTA ASESOR - Pantalla B: Ficha -->
+            <!-- Pantalla B -->
             <div class="screen" data-screen="b" data-view="asesor">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-b-header">
                     <div class="prospect-name">Dr. Andrés Gómez</div>
@@ -1597,10 +1543,18 @@
                 </div>
             </div>
 
-            <!-- VISTA ASESOR - Pantalla C: Preparación -->
+            <!-- Pantalla C -->
             <div class="screen" data-screen="c" data-view="asesor">
                 <div class="screen-header">
                     <button class="back-btn visible" data-action="back">← Atrás</button>
+                    <button class="reset-btn visible" data-action="reset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                            <path d="M3 21v-5h5"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="screen-content">
                     <div class="preparation-header">
@@ -1648,9 +1602,7 @@
 
         const app = document.querySelector('.app-container');
         const screens = document.querySelectorAll('.screen');
-        const demoBtn = document.getElementById('demoBtn');
-        const demoOverlay = document.getElementById('demoOverlay');
-        const demoSheet = document.getElementById('demoSheet');
+        const viewTabs = document.querySelectorAll('.view-tab');
 
         function showScreen(screenId, view = state.currentView) {
             screens.forEach(screen => {
@@ -1663,16 +1615,22 @@
                 state.currentScreen = screenId;
                 state.currentView = view;
 
+                viewTabs.forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.dataset.view === view) {
+                        tab.classList.add('active');
+                    }
+                });
+
                 updateNavigationButtons(screenId, view);
                 updateFooters(screenId);
                 validateContinueButton(screenId);
             }
-
-            closeDemoSheet();
         }
 
         function updateNavigationButtons(screenId, view) {
             const backBtns = document.querySelectorAll(`.screen[data-view="${view}"] .back-btn`);
+            const resetBtns = document.querySelectorAll(`.screen[data-view="${view}"] .reset-btn`);
 
             backBtns.forEach(btn => {
                 if (screenId === '1' || screenId === 'a') {
@@ -1769,6 +1727,7 @@
                     });
                     this.classList.add('selected');
                 } else {
+                    // Multi-select con comportamiento especial para "Ninguno" y "No estoy seguro"
                     if (optionText === 'Ninguno' || optionText === 'No estoy seguro') {
                         if (this.classList.contains('selected')) {
                             this.classList.remove('selected');
@@ -1807,42 +1766,6 @@
             validateContinueButton('6');
         });
 
-        function openDemoSheet() {
-            demoOverlay.classList.add('active');
-            demoSheet.classList.add('active');
-        }
-
-        function closeDemoSheet() {
-            demoOverlay.classList.remove('active');
-            demoSheet.classList.remove('active');
-        }
-
-        demoBtn.addEventListener('click', openDemoSheet);
-        demoOverlay.addEventListener('click', closeDemoSheet);
-
-        document.querySelectorAll('.demo-sheet-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const action = this.dataset.action;
-
-                if (action === 'show-prospecto') {
-                    showScreen('1', 'prospecto');
-                } else if (action === 'show-asesor') {
-                    showScreen('a', 'asesor');
-                } else if (action === 'reset-demo') {
-                    state.responses = {};
-                    document.querySelectorAll('.option.selected').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    document.querySelectorAll('.channel').forEach(ch => {
-                        ch.classList.remove('selected');
-                    });
-                    document.querySelector('[data-channel="whatsapp"]').classList.add('selected');
-                    document.querySelector('#consent-check').checked = false;
-                    showScreen('1', 'prospecto');
-                }
-            });
-        });
-
         document.addEventListener('click', function(e) {
             const el = e.target.closest('[data-action]');
             if (!el) return;
@@ -1872,6 +1795,17 @@
                 } else if (state.currentScreen === 'c') {
                     showScreen('b', 'asesor');
                 }
+            } else if (action === 'reset') {
+                state.responses = {};
+                document.querySelectorAll('.option.selected').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                document.querySelectorAll('.channel').forEach(ch => {
+                    ch.classList.remove('selected');
+                });
+                document.querySelector('[data-channel="whatsapp"]').classList.add('selected');
+                document.querySelector('#consent-check').checked = false;
+                showScreen('1', 'prospecto');
             } else if (action === 'go-to-ficha') {
                 showScreen('b', 'asesor');
             } else if (action === 'go-to-prep') {
@@ -1881,6 +1815,22 @@
             } else if (action === 'demo-action') {
                 showToast('Demo: aquí se abriría el contacto');
             }
+        });
+
+        viewTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const view = this.dataset.view;
+                if (view === 'prospecto') {
+                    state.responses = {};
+                    document.querySelectorAll('.option.selected').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    document.querySelector('#consent-check').checked = false;
+                    showScreen('1', 'prospecto');
+                } else {
+                    showScreen('a', 'asesor');
+                }
+            });
         });
 
         function showToast(message) {

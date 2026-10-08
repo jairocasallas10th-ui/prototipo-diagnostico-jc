@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Fondo blanco -->
+  <rect width="180" height="180" fill="#FFFFFF"/>
+
+  <!-- Símbolo MetLife: formas azul y verde -->
+  <!-- Forma azul (izquierda inferior) -->
+  <path d="M 45 70 Q 45 45 65 45 L 65 100 Q 50 110 45 100 Z" fill="#0090DA"/>
+
+  <!-- Forma verde (derecha superior) -->
+  <path d="M 85 45 Q 105 45 105 65 L 50 65 Q 60 45 85 45 Z" fill="#A4CE4E"/>
+
+  <!-- Forma azul más oscuro (acento) -->
+  <path d="M 65 100 L 90 100 Q 95 95 95 85 L 65 85 Z" fill="#007ABC" opacity="0.8"/>
+</svg>
